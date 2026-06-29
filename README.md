@@ -377,7 +377,7 @@ All YOLO checkpoints trained during the project are mirrored on Google Drive:
 **https://drive.google.com/drive/folders/1c0NPYVKhu6bp74acYz2VThGRQG2dFGXz?usp=sharing**
 
 The `code/models/` folder in this repo contains exactly the subset the
-pipeline and demo apps need. Some model checkpoints are included **directly** in this repository, while one of them is distributed through the external resources described in **Section 2**.
+pipeline and demo apps need. All models checkpoints are included **directly** in this repository, only one of them is distributed through the external resources described in **Section 2**.
 
 ### What is in `code/models/`
 
