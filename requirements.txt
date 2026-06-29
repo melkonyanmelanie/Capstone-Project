@@ -1,0 +1,14 @@
+hydra-core==1.3.2
+iopath==0.1.10
+matplotlib
+opencv-python
+pandas
+pillow
+realesrgan==0.3.0
+scikit-learn==1.5.2
+scipy
+streamlit
+torch
+torchvision
+tqdm
+ultralytics==8.4.37

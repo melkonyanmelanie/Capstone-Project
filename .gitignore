@@ -1,0 +1,29 @@
+# Python bytecode / caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build / packaging metadata
+*.egg-info/
+build/
+dist/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+*~
+
+# local dataset and generated results
+data/
+outputs/
+
+# large model checkpoint
+code/models/sam2.1_hiera_base_plus.pt
+
