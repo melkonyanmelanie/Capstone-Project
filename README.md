@@ -6,8 +6,55 @@ Understanding particle transport in complex anisotropic media is an important pr
 
 ---
 
-## 2. Repository structure
+## 2. Required Project Resources (Before Installation)
 
+To keep this repository lightweight and within GitHub's file size limits, several large project resources are **not included** in the repository:
+
+* `data/`
+* `outputs/`
+* `code/models/sam2.1_hiera_base_plus.pt`
+
+These resources are available here:
+
+**Google Drive:**
+https://drive.google.com/drive/folders/1-u1dR_ctr4bqWY2gJhFu9pNJzS7W1NTS?usp=sharing
+
+Download the contents of the Google Drive folder and place them into the project so that the directory structure matches the following (or for more detailed review of the structure, please check **Section 3: Repository Structure**):
+
+```text
+DS299 Final Capstone Project Melanie Melkonyan/
+│
+├── code/
+│   ├── models/
+│   │   ├── yolo26m_best.pt
+│   │   ├── yolo26n_best.pt
+│   │   ├── yolo26s_best.pt
+│   │   ├── RealESRGAN_x2plus.pth
+│   │   └── sam2.1_hiera_base_plus.pt   ← download from Google Drive
+│   └── ...
+│
+├── data/                               ← download from Google Drive
+│   ├── raw_data/
+│   ├── final_inputs/
+│   └── final_inputs_sr/
+│
+├── outputs/                            ← download from Google Drive
+│   └── tracking_on_final_sr_videos_1/
+│
+├── paper/
+├── initial_methodology/
+├── README.md
+└── requirements.txt
+```
+
+Once these resources have been placed in the correct locations, continue with the installation instructions in **Section 4: Quick Start — install and reproduce**.
+
+---
+
+
+## 3. Repository structure
+
+The following structure represents the complete project after the required external resources from Section 2 have been added.
 ```
 DS299 Final Capstone Project Melanie Melkonyan/
 ├── code/                                       # production source code
@@ -61,7 +108,7 @@ DS299 Final Capstone Project Melanie Melkonyan/
 
 ---
 
-## 3. Quick Start — install and reproduce
+## 4. Quick Start — install and reproduce
 
 The two extra `pip install` steps for `numpy` and `basicsr` BEFORE
 `requirements.txt` are intentional and necessary:
@@ -158,9 +205,9 @@ under `outputs/tracking_on_final_sr_videos_1/`, with three sub-folders:
 
 ---
 
-## 4. Detailed reproduction
+## 5. Detailed reproduction
 
-### 4.1 Why `--force` matters
+### 5.1 Why `--force` matters
 
 The pipeline defaults to **resume mode**: if `outputs/.../part1/sam2_tracks.pkl`
 already exists for a video, Part 1 skips that video and reuses the saved
@@ -182,7 +229,7 @@ python code/run_pipeline.py --force
 `--force` propagates `FORCE_RERUN=1` into Part 1 and Part 3, which wipe their
 per-video output directories before recomputing.
 
-### 4.2 What the orchestrator does
+### 5.2 What the orchestrator does
 
 For each `*.mp4` in `data/final_inputs/`:
 
@@ -209,7 +256,7 @@ For each `*.mp4` in `data/final_inputs/`:
    filter. Writes the final `tracks_merged.csv`, merged trajectory plot,
    merged annotated video, and a merge log.
 
-### 4.3 Two input modes
+### 5.3 Two input modes
 
 | Filename | Behavior |
 |---|---|
@@ -220,7 +267,7 @@ For each `*.mp4` in `data/final_inputs/`:
 The `data/final_inputs_sr/*.mp4` already contains the SR videos that produced
 the paper.
 
-### 4.4 All command-line flags
+### 5.4 All command-line flags
 
 ```
 python code/run_pipeline.py
@@ -231,7 +278,7 @@ python code/run_pipeline.py
                         (passes FORCE_RERUN=1 to Part 1 and Part 3)
 ```
 
-### 4.5 Running stages individually
+### 5.5 Running stages individually
 
 ```bash
 # Super-resolution only, single video:
@@ -261,14 +308,14 @@ $env:FORCE_RERUN = "1"; python code\pipeline_part1.py
 FORCE_RERUN=1 python code/pipeline_part1.py
 ```
 
-### 4.6 Expected runtime (reference)
+### 5.6 Expected runtime (reference)
 
 Times depend heavily on GPU model, CUDA / cuDNN version, and
 disk speed. This might take from 1.5 hours to 25+ hours to run.
 
 ---
 
-## 5. Data
+## 6. Data
 
 | Folder | Contents | Role |
 |---|---|---|
@@ -285,7 +332,7 @@ outputs are checked in directly.
 
 ---
 
-## 6. Output structure
+## 7. Output structure
 
 Each video stem (e.g. `three_particles_video_sr`) gets its own subdirectory
 under `outputs/tracking_on_final_sr_videos_1/`, with three sub-folders:
@@ -321,7 +368,7 @@ under `outputs/tracking_on_final_sr_videos_1/`, with three sub-folders:
 
 ---
 
-## 7. Models and checkpoints
+## 8. Models and checkpoints
 
 ### Drive mirror
 
@@ -330,7 +377,7 @@ All YOLO checkpoints trained during the project are mirrored on Google Drive:
 **https://drive.google.com/drive/folders/1c0NPYVKhu6bp74acYz2VThGRQG2dFGXz?usp=sharing**
 
 The `code/models/` folder in this repo contains exactly the subset the
-pipeline and demo apps need.
+pipeline and demo apps need. Some model checkpoints are included **directly** in this repository, while one of them is distributed through the external resources described in **Section 2**.
 
 ### What is in `code/models/`
 
@@ -377,7 +424,7 @@ SR outputs are bit-identical at the pixel level.
 
 ---
 
-## 8. Environment and dependencies
+## 9. Environment and dependencies
 
 ### Python version
 
@@ -424,7 +471,7 @@ rest of the requirements.
 
 ---
 
-## 9. Figures - which command produces which file
+## 10. Figures - which command produces which file
 
 Per the rubric requirement that figures must be generated programmatically:
 
@@ -436,11 +483,11 @@ Per the rubric requirement that figures must be generated programmatically:
 | Manual-vs-pipeline overlay plots | `code/metrics/manual_annotation_overlay*.py` | `outputs/manual_validation*/overlay_plot.png` |
 | Pipeline prompt debug image | `pipeline_part1.py` | `outputs/.../<stem>/part1/prompt_debug.png` |
 
-Eevery image in the results section is generated by one of the scripts above.
+Every image in the results section is generated by one of the scripts above.
 
 ---
 
-## 10. `code/metrics/` - annotation overlay tool
+## 11. `code/metrics/` - annotation overlay tool
 
 Three interactive scripts that overlay manually-annotated particle positions
 on top of the pipeline's trajectory output, and produce per-frame error
@@ -482,7 +529,7 @@ place reproduces the paper's exact overlay plots without re-annotating.
 
 ---
 
-## 11. `initial_methodology/` - exploratory baselines
+## 12. `initial_methodology/` - exploratory baselines
 
 This folder contains the project's earlier attempts at the tracking problem,
 preserved as methodology evidence and as a comparison baseline. The
@@ -508,7 +555,7 @@ that distinction visible.
 
 ---
 
-## 12. `code/intermediate_experiments_analysis_and_yolo_setup/` - exploratory notebooks
+## 13. `code/intermediate_experiments_analysis_and_yolo_setup/` - exploratory notebooks
 
 Seven Jupyter notebooks documenting the development history of the project:
 
@@ -528,7 +575,7 @@ not invoked by `run_pipeline.py` and are not required for reproduction.
 
 ---
 
-## 13. Notes
+## 14. Notes
 
 - **Default resume behaviour.** `python code/run_pipeline.py` without
   `--force` skips work where outputs already exist. Always delete
@@ -536,7 +583,7 @@ not invoked by `run_pipeline.py` and are not required for reproduction.
   verify true reproduction.
 ---
 
-## 14. Citations and licenses
+## 15. Citations and licenses
 
 External libraries and pretrained models used in this project:
 
@@ -557,6 +604,6 @@ on the project's own microscopy dataset; training is documented in
 
 ---
 
-## 15. Contact
+## 16. Contact
 
 **Melanie Melkonyan**: mmelkonyanmelanie@gmail.com
