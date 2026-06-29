@@ -1,4 +1,4 @@
-# Particle Tracking in Liquid-Crystal Microscopy Videos
+# Data-Driven Modeling of Particle Transport and Tracking Evolution in Complex Media
 
 ## 1. Project objective
 
